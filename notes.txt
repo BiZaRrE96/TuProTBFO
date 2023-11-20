@@ -1,0 +1,24 @@
+S1 S2 S3 S4 S5 S6
+
+Q P F # total states
+a # input word symbols
+Z Y # stack symbols
+Q # starting state
+Z # starting stack
+F # accepting states
+F # E - accepts with empty stack or F - accepts with accepting state
+Q a Z Q Y,Z # list of productions (current state, read from word, take from stack, next state, add to stack)
+
+  State: str
+  Input: str
+  Pop: str
+  NextState: str
+  Push: list
+
+
+NOTE (PUSH) : Kalau mau push ke stack lebih dari satu symbol, pisah pake koma
+NOTE (INPUT,EMPTY) : Kalau mau read epsilon, pake "EMPTY"
+NOTE (PUSH,EMPTY) : Kalau push nothing, ya jangan kasih apa apa
+    Example of push empty = Q a Z Q
+    Example of push something = Q a Z Q something
+    Example of push multiple stack symbol = Q a Z Q A,B

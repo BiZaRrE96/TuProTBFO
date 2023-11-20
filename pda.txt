@@ -1,0 +1,6 @@
+S1 < Zo S1 h,t,m,l,Zo
+S1 h h S1 EMPTY
+S1 t t S1 EMPTY
+S1 m m S1 EMPTY
+S1 l l S1 >
+S1 > > S2 <,h,e,a,d,>
