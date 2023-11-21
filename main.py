@@ -16,6 +16,7 @@ class rule:
     
 daRulez: list[rule] = []
 
+
 def evaluate_syntax(html_path):
   """
   Melakukan evaluasi sintaks dengan PDA
@@ -34,66 +35,112 @@ def evaluate_syntax(html_path):
   global acceptStates
   global acceptStateEmptyStacks
 
+  global stack
+  global current_state
   rule_found: bool
 
   stack = [startStack]
   current_state = startState
   current_position = 0
   line_count = 0 #line pointer
+  default_rule = None
 
   try :
     with open(html_path,'r') as html:
       #for every line in the html
       for line in html:
         line_count += 1
-        current_position = 0 #ini kaya, col pointer
 
-        #for every char in the line, strip is to remove \n lololol
+        current_line_length = 0
         for char in line.strip():
-            rule_found = False
-            for rulez in daRulez:
-              #find a rule that fits both readed char and current stack top
-              #print (stack[0],rulez.Pop)
-              if check_char(char, rulez.Input) and stack[0] == rulez.Pop:
-                #do the things that need to be done
-                current_state = rulez.NextState
-                stack = stack[1:]
-                if rulez.Push != []:
-                  stack = rulez.Push + stack
-                rule_found = True
-                #break the rulez loop to continue to the next char
-                break
+          current_line_length += 1
+        
+        prog = 0 #progress
+        while (prog < current_line_length):
+            #DEBUG
+            #print(char)
+            if (find_rule(line[prog])):
+              prog+=1
+            #print("CHAR :",char)
+            #print("TOP :",stack[0])
             
-            #if no rules are found, error is raised
-            if (not rule_found):
-              print(line)
-              print(f"Error at line {line_count}, col {current_position}")
-              raise ValueError("invalid char!")
 
     #udah closed at this point
+    while not (current_state in acceptStateEmptyStacks or current_state in acceptStates):
+        find_rule(line[prog-1],True)
     if current_state in acceptStates:
       print("Accepted")
     elif current_state in acceptStateEmptyStacks and stack == []:
       print("Accepted")
     else:
-      print(current_state,acceptStates)
+      print("CURRENT STATE :",current_state)
+      print("ACCEPTED STATES :",acceptStates)
+      print("CURRENT STACK :",stack)
+      print("DEFAULT RULE :",default_rule)
       print("File unfinished!/ Incomplete!")
       #return f"Syntax Error di line ke {current_position}, transisi {invalid_transition}"
 
   except ValueError:
+    print(stack)
+    print(f"Error at line {line_count}, col {prog}")
+    print(line)
     print("Error at this line")
 
-def check_char(read: str,rule: str) -> bool:
+def find_rule(currentchar: chr, verbose: bool = False):
+        global daRulez
+        global stack
+        default_rule = None
+        
+        for rulez in daRulez:
+          #find a rule that fits both readed char and current stack top
+          if verbose:
+            pass
+            
+          
+          if check_char(currentchar, rulez) and stack[0] == rulez.Pop and current_state == rulez.State:
+            
+            if (rulez.Input == "EMPTY"):
+              if (verbose):
+                print("DEFAULT RULE SET:",rulez)
+              default_rule = rulez
+              pass
+            else:
+              #DEBUG
+              #print(stack)
+              #do the things that need to be done
+              print("ACCEPTED RULE:",rulez)
+              accept_rule(rulez)
+              return True
+              #break the rulez loop to continue to the next char
+            
+        #if no rules are found, error is raised
+        
+        if (default_rule != None):
+          print("DEFAULT RULE ACCEPTED :",default_rule)
+          accept_rule(default_rule)
+        else:
+          raise ValueError("invalid char!")
+        return False
+
+def check_char(read: str,rulez: rule) -> bool:
   #fungsi ini diperlukan karena ada beberapa char kusus
-  if rule == 'ANY':
+  if rulez.Input == 'ANY':
     return True
-  elif read == 'EMPTY':
+  elif rulez.Input == 'EMPTY':
     return True
-  elif read == rule:
+  elif read == rulez.Input:
     return True
   else:
     return False
     
+def accept_rule(rulez: rule):
+  global current_state
+  global stack
+  current_state = rulez.NextState
+  stack = stack[1:]
+                
+  if rulez.Push != ["EMPTY"] and rulez.Push != [] :
+    stack = rulez.Push + stack
 
 
 def read_pda(filename):
@@ -119,16 +166,21 @@ def read_pda(filename):
     for lines in pdatxt:
       #print(lines)
       line = lines.strip().split()
-      #print(line)
-      state = line[0]
-      sInput = line[1]
-      pop = line[2]
-      nextState = line[3]
-      if len(line) > 4:
-        push = line[4].split(",")
+      if line == []:
+        pass
+      elif line[0][0] == "#":
+        pass
       else:
-        push = []
-      daRulez.append(rule(state,sInput,pop,nextState,push))
+      #print(line)
+        state = line[0]
+        sInput = line[1]
+        pop = line[2]
+        nextState = line[3]
+        if len(line) > 4:
+          push = line[4].split(",")
+        else:
+          push = []
+        daRulez.append(rule(state,sInput,pop,nextState,push))
 
 
 read_pda("test.txt")
