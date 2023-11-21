@@ -41,7 +41,6 @@ def evaluate_syntax(html_path):
 
   stack = [startStack]
   current_state = startState
-  current_position = 0
   line_count = 0 #line pointer
   default_rule = None
 
@@ -52,7 +51,7 @@ def evaluate_syntax(html_path):
         line_count += 1
 
         current_line_length = 0
-        for char in line.strip():
+        for thing in line.strip("\n"):
           current_line_length += 1
         
         prog = 0 #progress
@@ -60,15 +59,21 @@ def evaluate_syntax(html_path):
             #DEBUG
             #print(char)
             if (find_rule(line[prog])):
-              prog+=1
+              prog += 1
+              #print(prog)
             #print("CHAR :",char)
             #print("TOP :",stack[0])
             
-
-    #udah closed at this point
-    while not (current_state in acceptStateEmptyStacks or current_state in acceptStates):
-        find_rule(line[prog-1],True)
-    if current_state in acceptStates:
+    #udah closed at this 
+    loop_count = 0
+    max_loop = 50
+    while (not (current_state in acceptStateEmptyStacks or current_state in acceptStates) and loop_count < max_loop):
+        found = find_rule(line[prog-1],False)
+        loop_count += 1
+        #print(loop_count)
+    if loop_count == max_loop:
+      print("error, Too many empty loops")
+    elif current_state in acceptStates:
       print("Accepted")
     elif current_state in acceptStateEmptyStacks and stack == []:
       print("Accepted")
@@ -84,6 +89,9 @@ def evaluate_syntax(html_path):
     print(stack)
     print(f"Error at line {line_count}, col {prog}")
     print(line)
+    for i in range(prog):
+      print(end=" ")
+    print("^")
     print("Error at this line")
 
 def find_rule(currentchar: chr, verbose: bool = False):
@@ -108,7 +116,10 @@ def find_rule(currentchar: chr, verbose: bool = False):
               #DEBUG
               #print(stack)
               #do the things that need to be done
-              print("ACCEPTED RULE:",rulez)
+              if verbose:
+                print(currentchar)
+                print(stack)
+                print("ACCEPTED RULE:",rulez)
               accept_rule(rulez)
               return True
               #break the rulez loop to continue to the next char
@@ -116,7 +127,7 @@ def find_rule(currentchar: chr, verbose: bool = False):
         #if no rules are found, error is raised
         
         if (default_rule != None):
-          print("DEFAULT RULE ACCEPTED :",default_rule)
+          if verbose: print("DEFAULT RULE ACCEPTED :",default_rule)
           accept_rule(default_rule)
         else:
           raise ValueError("invalid char!")
@@ -138,6 +149,7 @@ def check_char(read: str,rulez: rule) -> bool:
 def accept_rule(rulez: rule):
   global current_state
   global stack
+  
   current_state = rulez.NextState
   stack = stack[1:]
                 
@@ -185,5 +197,5 @@ def read_pda(filename):
         daRulez.append(rule(state,sInput,pop,nextState,push))
 
 
-read_pda("test.txt")
+read_pda("pda.txt")
 evaluate_syntax("testhtml.txt")
