@@ -128,6 +128,8 @@ def check_char(read: str,rulez: rule) -> bool:
     return True
   elif rulez.Input == 'EMPTY':
     return True
+  elif rulez.Input == 'SPACE' and read == ' ':
+    return True
   elif read == rulez.Input:
     return True
   else:
