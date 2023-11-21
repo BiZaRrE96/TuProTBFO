@@ -1,6 +1,6 @@
 S1 S1ics S1cs S1is S1ic S1i S1c S1s
-1 2 3 4 5 6 7 8 9 0 - = q w e r t y u i o p [ ] \ a s d f g h j k l ; ' z x c v b n m , . / ! @ # $ % ^ & * ( ) _ + Q W E R T Y U I O P { } | A S D F G H J K L : " Z X C V B N M < > ?
-< > q w e r t y u i o p a s d f g h j k l STRINGOPEN STRINGCLOSE z x c v b n m / \ DONE
+1 2 3 4 5 6 7 8 9 0 - = q w e r t y u i o p [ ] \ a s d f g h j k l ; ' z x c v b n m , . / ! @ # $ % ^ & * ( ) _ + Q W E R T Y U I O P { } | A S D F G H J K L : " Z X C V B N M < > ? SPACE
+< > q w e r t y u i o p a s d f g h j k l STRINGOPEN STRINGCLOSE z x c v b n m / \ DONE WAIT
 S1
 Zo
 S2
@@ -9,19 +9,28 @@ S1 < Zo S1 h,t,m,l,Zo
 S1 h h S1 EMPTY
 S1 t t S1 EMPTY
 S1 m m S1 EMPTY
-S1 l l S1 >
-S1 > > S1ics DONE
+S1 l l S1ics >
 
-S1ics EMPTY DONE S2 <,h,e,a,d,>
-S1ic EMPTY DONE S2 <,h,e,a,d,>
-S1cs EMPTY DONE S2 <,h,e,a,d,>
-S1is EMPTY DONE S2 <,h,e,a,d,>
-S1i EMPTY DONE S2 <,h,e,a,d,>
-S1c EMPTY DONE S2 <,h,e,a,d,>
-S1s EMPTY DONE S2 <,h,e,a,d,>
+S1ics > > S2 <,h,e,a,d,>
+S1ic > > S2 <,h,e,a,d,>
+S1cs > > S2 <,h,e,a,d,>
+S1is > > S2 <,h,e,a,d,>
+S1i > > S2 <,h,e,a,d,>
+S1c > > S2 <,h,e,a,d,>
+S1s > > S2 <,h,e,a,d,>
+S1 > > S2 <,h,e,a,d,>
+
+S1ics SPACE > S1ics WAIT
+S1ic SPACE > S1ic WAIT
+S1cs SPACE > S1cs WAIT
+S1is SPACE > S1is WAIT
+S1i SPACE > S1i WAIT
+S1c SPACE > S1c WAIT
+S1s SPACE > S1s WAIT
+
 
 #inputID
-S1ics i DONE S1ics d,=,STRINGOPEN,STRINGCLOSE,DONE
+S1ics i WAIT S1ics d,=,STRINGOPEN,STRINGCLOSE,>
 S1ics d d S1ics EMPTY
 S1ics = = S1ics EMPTY
 S1ics " STRINGOPEN S1ics EMPTY
@@ -30,7 +39,7 @@ S1ics ANY STRINGCLOSE S1ics STRINGCLOSE
 S1cs SPACE SPACE S1cs EMPTY
 S1cs EMPTY SPACE S1cs EMPTY
 
-S1is i DONE S1is d,=,STRINGOPEN,STRINGCLOSE,DONE
+S1is i WAIT S1is d,=,STRINGOPEN,STRINGCLOSE,DONE,>
 S1is d d S1is EMPTY
 S1is = = S1is EMPTY
 S1is " STRINGOPEN S1is EMPTY
@@ -40,7 +49,7 @@ S1s SPACE SPACE S1s EMPTY
 S1s EMPTY SPACE S1s EMPTY
 
 #inputID
-S1ic i DONE S1ic d,=,STRINGOPEN,STRINGCLOSE,DONE
+S1ic i WAIT S1ic d,=,STRINGOPEN,STRINGCLOSE,DONE,>
 S1ic d d S1ic EMPTY
 S1ic = = S1ic EMPTY
 S1ic " STRINGOPEN S1ic EMPTY
@@ -49,7 +58,7 @@ S1ic ANY STRINGCLOSE S1ic STRINGCLOSE
 S1c SPACE SPACE S1c EMPTY
 S1c EMPTY SPACE S1c EMPTY
 
-S1i i DONE S1i d,=,STRINGOPEN,STRINGCLOSE,DONE
+S1i i WAIT S1i d,=,STRINGOPEN,STRINGCLOSE,DONE,>
 S1i d d S1i EMPTY
 S1i = = S1i EMPTY
 S1i " STRINGOPEN S1i EMPTY
