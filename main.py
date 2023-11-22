@@ -58,7 +58,7 @@ def evaluate_syntax(html_path):
         while (prog < current_line_length):
             #DEBUG
             #print(char)
-            if (find_rule(line[prog])):
+            if (find_rule(line[prog],False)):
               prog += 1
               #print(prog)
             #print("CHAR :",char)
@@ -86,6 +86,7 @@ def evaluate_syntax(html_path):
       #return f"Syntax Error di line ke {current_position}, transisi {invalid_transition}"
 
   except ValueError:
+    print("Current state:",current_state)
     print(stack)
     print(f"Error at line {line_count}, col {prog}")
     print(line)
