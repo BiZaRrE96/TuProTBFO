@@ -452,8 +452,8 @@ S5 m m S5 EMPTY
 #s group
 S5 s / S5 S,<,/
 #S5 c S 
-S5 t S S5 r,o,n,g,SPACE,tics,>,<,/,s,t,r,o,n,g,>
-S5 m S S5 a,l,l,SPACE,tics,>,<,/,s,m,a,l,l,>
+S5 t S S5 r,o,n,g,SPACE,ics,>,<,/,s,t,r,o,n,g,>
+S5 m S S5 a,l,l,SPACE,ics,>,<,/,s,m,a,l,l,>
 S5 EMPTY S SCRIPT WAIT,S5
 S5 g g S5 EMPTY
 S5 s s S5 EMPTY
