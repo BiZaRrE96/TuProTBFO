@@ -1,4 +1,4 @@
-# TuProTBFO
+# Tugas Pemrograman TBFO
 
 ## Meet The Teams
 > "ordinary people with extraordinary curiosity"
