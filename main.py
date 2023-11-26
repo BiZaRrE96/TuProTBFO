@@ -58,7 +58,7 @@ def evaluate_syntax(html_path):
         while (prog < current_line_length):
             #DEBUG
             #print(char)
-            if (find_rule(line[prog],False)):
+            if (find_rule(line[prog],True)):
               prog += 1
               #print(prog)
             #print("CHAR :",char)
@@ -66,9 +66,10 @@ def evaluate_syntax(html_path):
             
     #udah closed at this 
     loop_count = 0
-    max_loop = 50
+    max_loop = 10
+    print("STAGE 2")
     while (not (current_state in acceptStateEmptyStacks or current_state in acceptStates) and loop_count < max_loop):
-        found = find_rule(line[prog-1],False)
+        found = find_rule(line[prog-1],True)
         loop_count += 1
         #print(loop_count)
     if loop_count == max_loop:
@@ -181,21 +182,26 @@ def read_pda(filename):
     for lines in pdatxt:
       #print(lines)
       line = lines.strip().split()
-      if line == []:
-        pass
-      elif line[0][0] == "#":
-        pass
-      else:
-      #print(line)
-        state = line[0]
-        sInput = line[1]
-        pop = line[2]
-        nextState = line[3]
-        if len(line) > 4:
-          push = line[4].split(",")
+      try:
+        if line == []:
+          pass
+        elif line[0][0] == "#":
+          pass
         else:
-          push = []
-        daRulez.append(rule(state,sInput,pop,nextState,push))
+        #print(line)
+          state = line[0]
+          sInput = line[1]
+          pop = line[2]
+          nextState = line[3]
+          if len(line) > 4:
+            push = line[4].split(",")
+          else:
+            push = []
+          daRulez.append(rule(state,sInput,pop,nextState,push))
+      except :
+        print("Error reading this rule :")
+        print(lines)
+        exit(1)
 
 
 read_pda("pda.txt")
