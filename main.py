@@ -1,3 +1,5 @@
+verbose = False
+#set to true to see PDA process
 
 class rule:
   State: str
@@ -28,7 +30,7 @@ def evaluate_syntax(html_path):
   Returns:
     String "Accepted" jika input diterima atau "Syntax Error" di line ke [current_position]
   """
-
+  global verbose
   global startState
   global startStack
   global daRulez
@@ -58,7 +60,7 @@ def evaluate_syntax(html_path):
         while (prog < current_line_length):
             #DEBUG
             #print(char)
-            if (find_rule(line[prog],True)):
+            if (find_rule(line[prog],verbose)):
               prog += 1
               #print(prog)
             #print("CHAR :",char)
@@ -69,7 +71,7 @@ def evaluate_syntax(html_path):
     max_loop = 10
     print("STAGE 2")
     while (not (current_state in acceptStateEmptyStacks or current_state in acceptStates) and loop_count < max_loop):
-        found = find_rule(line[prog-1],True)
+        found = find_rule(line[prog-1],verbose)
         loop_count += 1
         #print(loop_count)
     if loop_count == max_loop:
@@ -180,7 +182,7 @@ def read_pda(filename):
 
     #rules
     for lines in pdatxt:
-      #print(lines)
+      #print(lines) 
       line = lines.strip().split()
       try:
         if line == []:
@@ -205,4 +207,4 @@ def read_pda(filename):
 
 
 read_pda("pda.txt")
-evaluate_syntax("testhtml.txt")
+evaluate_syntax("test.html")
