@@ -1,6 +1,6 @@
 S1 S1A S2 S2A SX SXA
 1 2 3 4 5 6 7 8 9 0 - = q w e r t y u i o p [ ] \ a s d f g h j k l ; ' z x c v b n m , . / ! @ # $ % ^ & * ( ) _ + Q W E R T Y U I O P { } | A S D F G H J K L : " Z X C V B N M < > ? SPACE
-< > q w e r t y u i o p a s d f g h j k l STRINGOPEN STRINGCLOSE z x c v b n m / \ DONE WAIT ERROR Ac As Ai ics ic cs is COMMENT CHECKCOMMENT
+< > q w e r t y u i o p a s d f g h j k l STRINGOPEN STRINGCLOSE z x c v b n m / \ DONE WAIT ERROR Ac As Ai ics ic cs is COMMENT CHECKCOMMENT ERROR
 S1
 Zo
 EMPTY
@@ -344,6 +344,16 @@ S5 EMPTY DONE S6 EMPTY
 #END IF OUT OF ATTRIBUTE
 S5A EMPTY > S5 >
 
+#SWAP WITH ANY OPTIONAL ATTRIBUTE
+S5A EMPTY ics S5Aics EMPTY
+S5A EMPTY ic S5Aic EMPTY
+S5A EMPTY is S5Ais EMPTY
+S5A EMPTY cs S5Acs EMPTY
+S5A EMPTY Ai S5Ai EMPTY
+S5A EMPTY Ac S5Ac EMPTY
+S5A EMPTY As S5As EMPTY
+#Karena kalau masuk S5A, emang bermaksud ngerjain attri
+#attribute resolution kerjakan di tempat biar disini gak penuh
 
 #inputID
 S5A i ics S5A d,=,STRINGOPEN,STRINGCLOSE,SPACE,cs
@@ -416,7 +426,7 @@ S5 < < S5 CHECKCOMMENT
 S5 / / S5 EMPTY
 
 S5 h / S5 H,<,/
-S5 r H S5 SPACE,ics,>,<,/,h,r,>
+S5 r H S5 SPACE,ics,>
 S5 1 H S5 SPACE,ics,>,<,/,h,1,>
 S5 2 H S5 SPACE,ics,>,<,/,h,2,>
 S5 3 H S5 SPACE,ics,>,<,/,h,3,>
@@ -452,28 +462,42 @@ S5 l l S5 EMPTY
 
 #a group
 S5 a / S5 A,<,/
-S5 EMPTY A S5 SPACE,hics,>
+S5 EMPTY A S5 SPACE,ics,h,>,<,/,a,>
 S5 b A S5 b,b,r,>
+
+S5Aics h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE,SPACE,ics
+S5Aic h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE,SPACE,ic
+S5Ais h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE,SPACE,is
+S5Acs h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE,SPACE,cs
+S5Ai h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE,SPACE,i
+S5Ac h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE,SPACE,c
+S5As h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE,SPACE,s
+S5Ah h h S5A r,e,f,=,STRINGOPEN,STRINGCLOSE
+S5A r r S5A EMPTY
+S5A f f S5A EMPTY
+S5 a a S5A EMPTY
 
 #b group
 S5 b / S5 B,<,/
 S5 EMPTY B S5 SPACE,ics,>,<,/,b,>
 #setau gw br gak bisa menerima attri
 S5 r B S5 >
-S5 u B S5 t,t,o,n,SPACE,tics,>,<,/,b,u,t,t,o,n,>
+S5 u B S5 t,t,o,n,SPACE,tBics,>,<,/,b,u,t,t,o,n,>
 
 #link group
 S5 l / SLINK WAIT,S5,<,/
 
+#tB untuk TYPE BUTTON
 #special cases untuk type
-S5A t tics S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,ics
-S5A t tic S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,ic
-S5A t tis S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,is
-S5A t tcs S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,cs
-S5A t ti S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,i
-S5A t tc S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,c
-S5A t ts S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,s
-S5A t At S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE
+
+S5Aics tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,ics
+S5Aic tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,ic
+S5Ais tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,is
+S5Acs tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,cs
+S5Ai tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,i
+S5Ac tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,c
+S5As tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE,SPACE,s
+S5Ah tB tB S5AB y,p,e,=,STRINGOPEN,WAIT,DONE,STRINGCLOSE
 
 #skip kalau tidak ada attribute
 S5 EMPTY tics S5 EMPTY
@@ -509,6 +533,15 @@ S5AB " STRINGOPEN S5AB EMPTY
 S5AB " STRINGCLOSE S5AB EMPTY
 
 #im doing table later
+
+#i group
+S5 i / S5 I,<,/
+S5 m I S5IMG g,>
+S5 n I S5LINK p,u,t,
+
+#S5IMG
+
+#S5LINK
 
 #link semuanya sekalian disini
 SLINK EMPTY WAIT SLINK i,n,k,SPACE,rh,>
