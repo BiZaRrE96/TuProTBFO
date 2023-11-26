@@ -69,18 +69,17 @@ def evaluate_syntax(html_path):
     #udah closed at this 
     loop_count = 0
     max_loop = 10
-    print("STAGE 2")
     while (not (current_state in acceptStateEmptyStacks or current_state in acceptStates) and loop_count < max_loop):
         found = find_rule(line[prog-1],verbose)
         loop_count += 1
         #print(loop_count)
-    if loop_count == max_loop:
-      print("error, Too many empty loops")
-    elif current_state in acceptStates:
+    if current_state in acceptStates:
       print("Accepted")
     elif current_state in acceptStateEmptyStacks and stack == []:
       print("Accepted")
     else:
+      if loop_count == max_loop:
+        print("error, Too many empty loops")
       print("CURRENT STATE :",current_state)
       print("ACCEPTED STATES :",acceptStates)
       print("CURRENT STACK :",stack)

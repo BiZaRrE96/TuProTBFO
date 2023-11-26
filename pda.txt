@@ -1,6 +1,6 @@
-S1 S1A S2 S2A SX SXA
+S1 S1A S2 S2A S3 S3A S4 S4A S5 S5A S5ics S5ic S5is S5cs S5Ai S5Ac S5As S5Ar S5Ah S5AI S5AB SLINK SLINKCLOSE SIMG STABLE SFORM
 1 2 3 4 5 6 7 8 9 0 - = q w e r t y u i o p [ ] \ a s d f g h j k l ; ' z x c v b n m , . / ! @ # $ % ^ & * ( ) _ + Q W E R T Y U I O P { } | A S D F G H J K L : " Z X C V B N M < > ? SPACE
-< > q w e r t y u i o p a s d f g h j k l STRINGOPEN STRINGCLOSE z x c v b n m / \ DONE WAIT ERROR Ac As Ai ics ic cs is COMMENT CHECKCOMMENT ERROR
+< > q w e r t y u i o p a s d f g h j k l STRINGOPEN STRINGCLOSE z x c v b n m / \ DONE WAIT ERROR Ac As Ai ics ic cs is COMMENT CHECKCOMMENT ERROR Ah Ar tB tI
 S1
 Zo
 EMPTY
